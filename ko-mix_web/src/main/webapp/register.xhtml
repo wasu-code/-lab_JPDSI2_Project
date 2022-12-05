@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<f:metadata>
+    <f:viewAction action="#{userRegisterBB.onLoad()}" />
+</f:metadata>
+
+<h:head>
+	<meta charset="utf-8"/>
+	<title>Title</title>
+</h:head>
+
+<h:body style="background-color: #eee; margin: 0.5em;">
+
+	<p:panel toggleable="true" header="Register">
+
+		<h:form>
+			<h:panelGrid columns="3" cellpadding="5">
+
+				<h:outputLabel for="p-login" value="login:" />
+				<p:inputText id="p-login" value="#{userRegisterBB.user.login}"
+					required="true" requiredMessage="Podaj login"
+					validatorMessage="co najwyżej 40 znaków">
+					<f:validateLength maximum="40" />
+				</p:inputText>
+				<p:message for="p-login" display="icon"/>
+				
+				<h:outputLabel for="p-pass" value="password:" />
+				<p:inputText id="p-pass" value="#{userRegisterBB.user.password}"
+					required="true" requiredMessage="Podaj hasło"
+					validatorMessage="co najwyżej 40 znaków">
+					<f:validateLength maximum="40" />
+				</p:inputText>
+				<p:message for="p-pass" display="icon"/>
+				
+				<h:outputLabel for="p-mail" value="Email:" />
+				<p:inputText id="p-mail" value="#{userRegisterBB.user.email}"
+					required="true" requiredMessage="Podaj mail"
+					validatorMessage="co najwyżej 40 znaków">
+					<f:validateLength maximum="40" />
+				</p:inputText>
+				<p:message for="p-mail" display="icon"/>
+				
+				<h:outputLabel for="p-role" value="Rola:" />
+				<p:inputText id="p-role" value="#{userRegisterBB.user.accountrole}"
+					required="true" requiredMessage="Podaj role"
+					validatorMessage="co najwyżej 40 znaków">
+					<f:validateLength maximum="40" />
+				</p:inputText>
+				<p:message for="p-role" display="icon"/>
+
+			</h:panelGrid>
+
+			<p:messages id="msgs" />
+
+			<p:commandButton value="Zapisz" action="#{userRegisterBB.register}"
+				style="margin-right: 1em;" update="@form" />
+
+			<!-- p:button value="Anuluj" outcome="personList" /-->
+		</h:form>
+
+	</p:panel>
+
+</h:body>
+
+</html>
