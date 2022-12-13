@@ -5,20 +5,25 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
+	
+<ui:composition template="/templates/main.xhtml">
 
-<h:head>
-	<meta charset="utf-8"/>
-	<title>Home</title>
-</h:head>
-<h:body style="background-color: #eee; margin: 0.5em;">
+	<ui:define name="title">
+		Strona Główna
+	</ui:define>
 
-	<p:panel header="Opcje wyszukiwania" toggleable="true" collapsed="true"
+	<ui:define name="content">
+
+		<p:panel header="Opcje wyszukiwania" toggleable="true" collapsed="true"
 		style="margin-bottom: 1em;">
-		
-	</p:panel>
+			Something Went Wrong. idk
+		</p:panel>
 
-	Something Went Wrong. idk
+	Were you looking for that error page? Because that's exactly what it is.
 	<p:messages id="msgs" />
 
-</h:body>
+	</ui:define>
+	
+</ui:composition>
+
 </html>

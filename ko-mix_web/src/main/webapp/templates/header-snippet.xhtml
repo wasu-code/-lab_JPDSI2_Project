@@ -5,10 +5,12 @@
 	xmlns:h="http://xmlns.jcp.org/jsf/html">
 
 	<div style="position:sticky; top:0; padding: 20px; margin:10px; background-color: green;">
-	
-	<p:linkButton outcome="index" value="Home" style="margin-right:20px;">
-    </p:linkButton>
-    <p:linkButton outcome="register" value="Home" style="margin-right:20px;">
-    </p:linkButton>
+		<h:form>
+			<p:linkButton outcome="index" value="Home" style="margin-right:20px;">
+    		</p:linkButton>
+    		<p:linkButton outcome="register" value="Register" style="margin-right:20px;">
+    		</p:linkButton>
+			<p:commandButton action="#{userLoginBB.logout}" type="button" value="Wyloguj" />
+	</h:form>
 	</div>
 </ui:composition>
