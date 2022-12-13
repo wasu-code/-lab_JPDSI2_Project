@@ -5,19 +5,30 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
+	
+<ui:composition template="/templates/main.xhtml">
 
-<h:head>
-	<meta charset="utf-8"/>
-	<title>Home</title>
-</h:head>
-<h:body style="background-color: #eee; margin: 0.5em;">
+	<ui:define name="title">
+		Strona Główna
+	</ui:define>
 
-	<p:panel header="Opcje wyszukiwania" toggleable="true" collapsed="true"
+	<ui:define name="content">
+
+		<p:panel header="jakaś zawartość" styleClass="bottom-space">... przykładowa stała zawartość ...</p:panel>
+
+		<p:panel header="Opcje wyszukiwania" toggleable="true" collapsed="false"
 		style="margin-bottom: 1em;">
 		
-	</p:panel>
+		
+		<p:button value="Wyloguj" action="#{userLoginBB.logout}"/>
+		
+		</p:panel>
 
-	Hellow World
-	<p:messages id="msgs" />
-</h:body>
+		Hellow World
+		<p:messages id="msgs" />
+
+	</ui:define>
+	
+</ui:composition>
+
 </html>

@@ -19,7 +19,7 @@
 			<param-name>permissions</param-name>
 			<param-value>
 /javax.faces.resource : PUBLIC;
-/index.xhtml : user;
+/index.xhtml : PUBLIC;
 /register.xhtml : admin;
 			</param-value>
 		</init-param>
