@@ -9,18 +9,19 @@
 <ui:composition template="/templates/main.xhtml">
 
 	<ui:define name="title">
-		Strona Główna
+		Błąd
 	</ui:define>
 
 	<ui:define name="content">
-
-		<p:panel header="Opcje wyszukiwania" toggleable="true" collapsed="true"
+		
+		<h1>Napotkano błąd</h1>
+		<p:panel header="You found it! THE ERROR PAGE!" toggleable="true" collapsed="false"
 		style="margin-bottom: 1em;">
-			Something Went Wrong. idk
+			But there is nothing in there :(
+			<p:messages id="msgs" />
 		</p:panel>
 
-	Were you looking for that error page? Because that's exactly what it is.
-	<p:messages id="msgs" />
+	
 
 	</ui:define>
 	

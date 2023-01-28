@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jstl/core">
+
+<ui:composition template="/templates/main.xhtml">
+
+	<f:metadata>
+		<f:viewParam name="id" value="#{userEditBB.user.idUser}" />
+		<f:viewAction action="#{userEditBB.load}" />
+	</f:metadata>
+
+	<ui:define name="title">
+		Editing Users
+	</ui:define>
+
+	<ui:define name="content">
+		<h:form id="userEdit">
+			<p:panel header="Edit user" styleClass="bottom-space"
+				collapsed="#{userEditBB.user.idUser eq 0 ? 'true' : 'false'}">
+
+
+				<h:panelGrid columns="4" cellpadding="5">
+					<h:inputHidden id="id" value="#{userEditBB.user.idUser}" />
+
+					<p:inputText disabled="true" id="login"
+						value="#{userEditBB.user.login}" />
+
+					<p:selectOneMenu id="option" value="#{userEditBB.user.accountrole}">
+						<f:selectItem itemLabel="User" itemValue="user" />
+						<f:selectItem itemLabel="Admin" itemValue="admin" />
+						<f:selectItem itemLabel="Banned" itemValue="banned" />
+					</p:selectOneMenu>
+
+					<p:commandButton value="Potwierdź"
+						action="#{userEditBB.updateRole}" update="userList userEdit" />
+				</h:panelGrid>
+
+
+			</p:panel>
+			<p:messages id="msgs" />
+		</h:form>
+
+		<h:form id="userList">
+			<p:panel header="Users" styleClass="bottom-space" id="abc">
+
+				<h:outputLabel for="search" value="Search:" />
+				<h:inputText id="search" value="#{userListBB.searchTerm}" />
+				<h:commandButton value="Search" action="#{userListBB.searchUsers}">
+					<f:ajax execute="search" render="@form" update="@form" />
+				</h:commandButton>
+
+
+				<p:dataTable id="searchResults" value="#{userListBB.searchResults}"
+					var="u" paginator="true" rows="10"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="1,5,10,{ShowAll|'All'}"
+					paginatorAlwaysVisible="true" paginatorPosition="bottom">
+					<p:column>
+						<f:facet name="header">Login</f:facet>
+						<h:outputText value="#{u.login}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">E-mail</f:facet>
+						<h:outputText value="#{u.email}" />
+					</p:column>
+					<!-- add more columns as needed -->
+					<p:column>
+						<f:facet name="header">Rola</f:facet>
+						<h:outputText value="#{u.accountrole}" />
+					</p:column>
+					<p:column>
+						<p:linkButton outcome="/dashboard.xhtml?id=#{u.idUser}"
+							value="Edit" icon="pi pi-arrow-circle-right"
+							style="margin:0 10px;text-decoration: none;"></p:linkButton>
+					</p:column>
+
+				</p:dataTable>
+
+
+
+			</p:panel>
+
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>
+
+</html>

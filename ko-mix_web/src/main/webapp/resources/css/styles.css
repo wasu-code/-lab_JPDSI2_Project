@@ -1,0 +1,25 @@
+body {
+	background-color: #01875f;
+}
+
+.ui-panel {
+	margin-bottom: 10px;
+}
+
+.navbar {
+	position:sticky; 
+	top:0;
+	padding: 10px 0;
+}
+
+.ui-chronoline-event-content {
+	flex: 3 !important;
+}
+
+.ui-button a {
+	text-decoration: none;
+}
+
+.ui-button {
+	margin: 7px 10px 7px 0px !important;
+}

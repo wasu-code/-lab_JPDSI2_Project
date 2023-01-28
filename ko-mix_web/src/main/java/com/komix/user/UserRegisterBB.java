@@ -38,12 +38,21 @@ public class UserRegisterBB implements Serializable {
 	public String register() {
 
 		try {
+			user.setAccountrole("user");
 			//++ sprawdunikalność loginu
-			userDAO.insert(user);
+			if (userDAO.isLoginAvailable(user.getLogin())) {
+				userDAO.insert(user);
+			} else {
+				context.addMessage(null,
+						new FacesMessage(FacesMessage.SEVERITY_ERROR, "login zajęty", null));
+				return "register";
+			}
+			
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			context.addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_ERROR, "wystąpił błąd podczas zapisu", null));
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "wystąpił błąd podczas zapisu" + e.getMessage(), null));
 			return "error";
 		}
 

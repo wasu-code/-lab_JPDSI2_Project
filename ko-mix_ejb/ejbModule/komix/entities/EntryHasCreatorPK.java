@@ -12,10 +12,10 @@ public class EntryHasCreatorPK implements Serializable {
 	//default serial version id, required for serializable classes.
 	private static final long serialVersionUID = 1L;
 
-	@Column(insertable=false, updatable=false)
+	@Column(insertable=true, updatable=true)
 	private int entry_idEntry;
 
-	@Column(insertable=false, updatable=false)
+	@Column(insertable=true, updatable=true)
 	private int creator_idCreator;
 
 	public EntryHasCreatorPK() {

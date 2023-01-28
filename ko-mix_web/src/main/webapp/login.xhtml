@@ -28,11 +28,11 @@
 				<p:message for="p-login" display="icon"/>
 				
 				<h:outputLabel for="p-pass" value="password:" />
-				<p:inputText id="p-pass" value="#{userLoginBB.user.password}"
+				<h:inputSecret id="p-pass" value="#{userLoginBB.user.password}"
 					required="true" requiredMessage="Podaj hasło"
 					validatorMessage="co najwyżej 40 znaków">
 					<f:validateLength maximum="40" />
-				</p:inputText>
+				</h:inputSecret>
 				<p:message for="p-pass" display="icon"/>
 
 			</h:panelGrid>

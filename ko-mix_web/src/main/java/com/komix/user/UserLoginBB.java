@@ -52,7 +52,7 @@ public class UserLoginBB implements Serializable{
 				return null;
 			} else {
 				context.addMessage(null,
-						new FacesMessage(FacesMessage.SEVERITY_ERROR, "Dane poprawne. Rola: " + u.get(0).getAccountrole(), null));
+						new FacesMessage(FacesMessage.SEVERITY_INFO, "Dane poprawne. Rola: " + u.get(0).getAccountrole(), null));
 				
 				//save in RemoteClient and store it in session
 				RemoteClient<User> client = new RemoteClient<User>(); //create new RemoteClient
@@ -62,6 +62,9 @@ public class UserLoginBB implements Serializable{
 				//store RemoteClient with request info in session (needed for SecurityFilter)
 				HttpServletRequest request = (HttpServletRequest) ctx.getExternalContext().getRequest();
 				client.store(request);
+				
+				//add to session(?)
+				ctx.getExternalContext().getSessionMap().put("role",u.get(0).getAccountrole());
 
 				// and enter the system (now SecurityFilter will pass the request)
 				return "index";

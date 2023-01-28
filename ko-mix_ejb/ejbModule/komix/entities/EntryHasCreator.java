@@ -21,12 +21,12 @@ public class EntryHasCreator implements Serializable {
 
 	//bi-directional many-to-one association to Creator
 	@ManyToOne
-	@JoinColumn(name="id_creator", insertable=false, updatable=false)//??
+	@JoinColumn(name="id_creator", insertable=true, updatable=true)//??
 	private Creator creator;
 
 	//bi-directional many-to-one association to Entry
 	@ManyToOne
-	@JoinColumn(name="id_creator", insertable=false, updatable=false)//??
+	@JoinColumn(name="id_entry", insertable=true, updatable=true)//??
 	private Entry entry;
 
 	public EntryHasCreator() {

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+<ui:composition template="/templates/main.xhtml">
+
+
+	<ui:define name="title">
+		List of Available Comic
+	</ui:define>
+
+	<ui:define name="content">
+	<p:messages id="msgs" />
+	<h:form id="searchbox">
+		<p:panel header="Filter Results" toggleable="true" collapsed="false" styleClass="bottom-space">
+			
+			<span class="ui-input-icon-left">
+        		<i class="pi pi-search" />
+        		<p:inputText id="search" placeholder="Search Title" value="#{entryListBB.searchTitle}" />
+        		
+			    <p:commandButton value="Search" update="@form"/>
+    		</span>
+		</p:panel>
+		
+    	<p:dataTable value="#{entryListBB.entries}" var="entry" 
+		             paginator="true" rows="5" 
+		             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+		             rowsPerPageTemplate="1,5,10,{ShowAll|'All'}"
+		             paginatorAlwaysVisible="true"
+		             paginatorPosition="both">
+		    <p:column headerText="Cover">
+		        <img src="#{entry.coverUrl}" alt="no cover available" style="width:200px;"/>
+		    </p:column>
+		    <p:column headerText="English Title">
+                <h:outputText value="#{entry.titleEng}" />
+            </p:column>
+            <p:column headerText="Original Title">
+                <h:outputText value="#{entry.titleOrg}" />
+            </p:column>
+            <p:column headerText="">
+                <p:linkButton outcome="/public/view.xhtml?id=#{entry.idEntry}" value="More Details" icon="pi pi-arrow-circle-right" style="margin:0 10px;text-decoration: none;"></p:linkButton>
+            </p:column>
+            
+		</p:dataTable>
+
+    </h:form>
+	</ui:define>
+	
+</ui:composition>
+
+</html>

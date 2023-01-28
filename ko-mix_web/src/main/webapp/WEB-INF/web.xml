@@ -13,14 +13,21 @@
 		<filter-class>javax.faces.simplesecurity.SecurityFilter</filter-class>
 		<init-param>
 			<param-name>noPermitionPage</param-name>
-			<param-value>/login.xhtml</param-value>
+			<param-value>/noEntry.xhtml</param-value>
 		</init-param>
 		<init-param>
 			<param-name>permissions</param-name>
 			<param-value>
 /javax.faces.resource : PUBLIC;
+/public/list.xhtml : PUBLIC;
+/public/view.xhtml : PUBLIC;
+/public/edit.xhtml : user, mod, admin;
 /index.xhtml : PUBLIC;
+/login.xhtml : PUBLIC;
 /register.xhtml : admin;
+/noEntry.xhtml : PUBLIC;
+/dashboard.xhtml : admin;
+/error.xhtml : PUBLIC;
 			</param-value>
 		</init-param>
 		<init-param>
@@ -59,7 +66,7 @@
 	</servlet-mapping>
 	
 	<session-config>
-		<session-timeout>1</session-timeout>
+		<session-timeout>10</session-timeout>
 		<tracking-mode>COOKIE</tracking-mode>
 	</session-config>
 	

@@ -2,15 +2,45 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:h="http://xmlns.jcp.org/jsf/html">
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:c="http://java.sun.com/jstl/core">
 
-	<div style="position:sticky; top:0; padding: 20px; margin:10px; background-color: green;">
+	<div class="navbar">
 		<h:form>
-			<p:linkButton outcome="index" value="Home" style="margin-right:20px;">
-    		</p:linkButton>
-    		<p:linkButton outcome="register" value="Register" style="margin-right:20px;">
-    		</p:linkButton>
-			<p:commandButton action="#{userLoginBB.logout}" type="button" value="Wyloguj" />
-	</h:form>
+			<p:toolbar id="tb">
+				<f:facet name="left">
+					<h2 style="display: inline-block; margin: 0 10px;">KO-mix</h2>
+					<p:linkButton outcome="/index" value="Home" style="margin:0 10px;"
+						icon="pi pi-bookmark">
+					</p:linkButton>
+					<p:linkButton outcome="/public/list" value="List"
+						style="margin:0 10px;" icon="pi pi-bookmark">
+					</p:linkButton>
+					<p:linkButton outcome="/public/edit" value="Dodaj Komiks"
+						style="margin:0 10px;" icon="pi pi-plus-circle">
+					</p:linkButton>
+
+				</f:facet>
+				<f:facet name="right">
+					#{sessionScope.role}
+					<c:if test="#{sessionScope.role == 'admin'}">
+						<p:linkButton outcome="/dashboard" value="Dashboard"
+							style="margin:0 10px;text-decoration: none;" icon="pi pi-table">
+						</p:linkButton>
+					</c:if>
+					<p:linkButton outcome="/login" value="Zaloguj"
+						style="margin:0 10px;text-decoration: none;" icon="pi pi-sign-in">
+					</p:linkButton>
+					<p:commandButton value="Wyloguj" action="#{userLoginBB.logout}"
+						style="margin:0 10px;" icon="pi pi-sign-in" />
+					<p:linkButton outcome="/register" value="Zarejestruj"
+						style="margin:0 10px;text-decoration: none;"
+						icon="pi pi-plus-circle">
+					</p:linkButton>
+				</f:facet>
+			</p:toolbar>
+
+			<p:sticky target="tb" />
+		</h:form>
 	</div>
 </ui:composition>
