@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jstl/core">
+
+<ui:composition template="/templates/main.xhtml">
+
+	<f:metadata>
+		<f:viewParam name="id" value="#{authorEditBB.author.idCreator}" />
+		<f:viewAction action="#{authorEditBB.load}" />
+	</f:metadata>
+
+	<p:messages id="msgs" />
+
+	<ui:define name="title">
+		Editing Author
+	</ui:define>
+
+	<ui:define name="content">
+		<p:messages id="msgs" />
+		<h:form id="comicData">
+			<p:panel header="Profil Autora" styleClass="bottom-space">
+				<h:panelGrid columns="1" cellpadding="5">
+					<h:outputLabel for="id1" value="Główna Nazwa Autora (Nick):" />
+					<p:inputText id="id1" value="#{authorEditBB.author.nickname}"
+						required="true" requiredMessage="Nick jest obowiązkowy"></p:inputText>
+						<p:message for="id1" />
+
+					<h:outputLabel for="id2" value="Imię:" />
+					<p:inputText id="id2" value="#{authorEditBB.author.firstName}"></p:inputText>
+
+					<h:outputLabel for="id3" value="Nazwisko:" />
+					<p:inputText id="id3" value="#{authorEditBB.author.lastName}"></p:inputText>
+
+					<h:outputLabel for="id4" value="Aliasy (inne nazwy):" />
+					<p:inputTextarea id="id4" value="#{authorEditBB.author.aliases}"
+						rows="5" cols="60" autoResize="false"></p:inputTextarea>
+				</h:panelGrid>
+			</p:panel>
+
+
+			<p:messages id="msgs" />
+			<p:commandButton value="Zapisz" action="#{authorEditBB.save}"
+				update="@form" />
+
+
+		</h:form>
+		
+
+
+
+	</ui:define>
+
+</ui:composition>
+
+</html>

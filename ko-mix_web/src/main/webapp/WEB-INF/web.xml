@@ -28,6 +28,7 @@
 /noEntry.xhtml : PUBLIC;
 /dashboard.xhtml : admin;
 /error.xhtml : PUBLIC;
+/public/authorEdit.xhtml : user, mod, admin;
 			</param-value>
 		</init-param>
 		<init-param>
