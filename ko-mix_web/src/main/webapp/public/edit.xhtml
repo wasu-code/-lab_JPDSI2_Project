@@ -6,12 +6,12 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:c="http://java.sun.com/jstl/core">
-	
+
 <ui:composition template="/templates/main.xhtml">
 
 	<f:metadata>
-    	<f:viewParam name="id" value="#{entryEditBB.entry.idEntry}" />
-    	<f:viewAction action="#{entryEditBB.load}" />
+		<f:viewParam name="id" value="#{entryEditBB.entry.idEntry}" />
+		<f:viewAction action="#{entryEditBB.load}" />
 	</f:metadata>
 
 	<p:messages id="msgs" />
@@ -21,84 +21,112 @@
 	</ui:define>
 
 	<ui:define name="content">
-	<p:messages id="msgs" />
-	<c:if test="#{entryEditBB.entry.isLocked eq 0}">
-	<h:form id="comicData">
-		<p:panel header="Basic Info" styleClass="bottom-space">
-			<h:panelGrid columns="1" cellpadding="5">
-				<h:outputLabel for="coverUrl" value="CoverUrl:" />
-				<p:inputText id="coverUrl" value="#{entryEditBB.entry.coverUrl}"></p:inputText>
-				
-				<h:outputLabel for="titleOrg" value="Original Title:" />
-				<p:inputText id="titleOrg" value="#{entryEditBB.entry.titleOrg}" required="true" requiredMessage="Title of original is mandatory"></p:inputText>
-				<p:message for="titleOrg"/>
-				
-				<h:outputLabel for="titleEng" value="English Title:" />
-				<p:inputText id="titleEng" value="#{entryEditBB.entry.titleEng}"></p:inputText>
-				
-				<h:outputLabel for="aliases" value="Aliases:" />
-				<p:inputTextarea id="aliases" value="#{entryEditBB.entry.aliases}" rows="5" cols="60" autoResize="false"></p:inputTextarea>
-			</h:panelGrid>
-		</p:panel>
-		
-		<p:panel header="Author Info" styleClass="bottom-space">
-			
-				<h:outputLabel for="authorId" value="ID of author" />
-				<p:inputText id="authorID" value="#{entryEditBB.creator.idCreator}"></p:inputText>
-				
-			    <h:outputLabel for="search" value="Search:" />
-			    <h:inputText id="search" value="#{authorListBB.searchTerm}" />
-			    <h:commandButton value="Search" action="#{authorListBB.searchAuthors}">
-    				<f:ajax execute="search" render="@form" update="@form"/>
-				</h:commandButton>
-			
-			
-				<h:dataTable id="searchResults" value="#{authorListBB.searchResults}" var="author">
-				    <h:column>
-				        <f:facet name="header">Nickname</f:facet>
-				        <h:outputText value="#{author.nickname}"/>
-				    </h:column>
-				    <h:column>
-				        <f:facet name="header">Aliases</f:facet>
-				        <h:outputText value="#{author.aliases}"/>
-				    </h:column>
-				    <!-- add more columns as needed -->
-				</h:dataTable>
-			
-		</p:panel>
-		
-		<p:panel header="More Info" toggleable="true" collapsed="false"
-		style="margin-bottom: 1em;">
-			<h:panelGrid columns="4" cellpadding="5">
-				<h:outputLabel for="publised" value="Year of Publishing:" />
-				<p:inputNumber id="publised" value="#{entryEditBB.entry.publishYear}" decimalPlaces="0"></p:inputNumber>
-				
-				<h:outputLabel for="langOrg" value="Original Language:" />
-				<p:inputText id="langOrg" value="#{entryEditBB.entry.originalLang}"></p:inputText>
-				
-				<h:outputLabel for="direction" value="Reading Direction:" />
-				<p:inputText id="direction" value="#{entryEditBB.entry.readingDirection}"></p:inputText>
-				
-				<h:outputLabel for="ch" value="Number of Chapters:" />
-				<p:inputNumber id="ch" value="#{entryEditBB.entry.chapterCount}" decimalPlaces="0"></p:inputNumber>
-				
-				<h:outputLabel for="vol" value="Number of Volumes:" />
-				<p:inputNumber id="vol" value="#{entryEditBB.entry.volumeCount}" decimalPlaces="0"></p:inputNumber>
-				
-				<h:outputLabel for="pg" value="Number of Pages:" />
-				<p:inputNumber id="pg" value="#{entryEditBB.entry.pageCount}" decimalPlaces="0"></p:inputNumber>
-			</h:panelGrid>
-		</p:panel>
 		<p:messages id="msgs" />
-		<p:commandButton value="Zapisz" action="#{entryEditBB.save}" update="@form"/>
-		
-	</h:form>
-	</c:if>
-	<c:if test="#{entryEditBB.entry.isLocked eq 1}">
+		<c:if test="#{entryEditBB.entry.isLocked eq 0}">
+			<h:form id="comicData">
+				<p:panel header="Podstawowe Informacje" styleClass="bottom-space">
+					<h:panelGrid columns="1" cellpadding="5">
+						<h:outputLabel for="coverUrl" value="URL Okładki:" />
+						<p:inputText id="coverUrl" value="#{entryEditBB.entry.coverUrl}"></p:inputText>
+
+						<h:outputLabel for="titleOrg" value="Tytuł Oryginalny:" />
+						<p:inputText id="titleOrg" value="#{entryEditBB.entry.titleOrg}"
+							required="true" requiredMessage="Title of original is mandatory"></p:inputText>
+						<p:message for="titleOrg" />
+
+						<h:outputLabel for="titleEng" value="Tytuł Angielski:" />
+						<p:inputText id="titleEng" value="#{entryEditBB.entry.titleEng}"></p:inputText>
+
+						<h:outputLabel for="aliases" value="Opis:" />
+						<p:inputTextarea id="aliases" value="#{entryEditBB.entry.aliases}"
+							rows="5" cols="60" autoResize="false"></p:inputTextarea>
+					</h:panelGrid>
+				</p:panel>
+
+				<p:panel header="Informacje Dodatkowe" toggleable="true"
+					collapsed="false" style="margin-bottom: 1em;">
+					<h:panelGrid columns="4" cellpadding="5">
+						<h:outputLabel for="publised" value="Rok Publikacji: " />
+						<p:inputNumber id="publised"
+							value="#{entryEditBB.entry.publishYear}" decimalPlaces="0"></p:inputNumber>
+
+						<h:outputLabel for="langOrg" value="Język Oryginału: :" />
+						<p:inputText id="langOrg"
+							value="#{entryEditBB.entry.originalLang}"></p:inputText>
+
+						<h:outputLabel for="direction" value="Kierunek Czytania: " />
+						<p:inputText id="direction"
+							value="#{entryEditBB.entry.readingDirection}"></p:inputText>
+
+						<h:outputLabel for="ch" value="Liczba Rozdziałów: " />
+						<p:inputNumber id="ch" value="#{entryEditBB.entry.chapterCount}"
+							decimalPlaces="0"></p:inputNumber>
+
+						<h:outputLabel for="vol" value="Liczba Tomów: " />
+						<p:inputNumber id="vol" value="#{entryEditBB.entry.volumeCount}"
+							decimalPlaces="0"></p:inputNumber>
+
+						<h:outputLabel for="pg" value="Liczba Stron: " />
+						<p:inputNumber id="pg" value="#{entryEditBB.entry.pageCount}"
+							decimalPlaces="0"></p:inputNumber>
+
+
+						<h:outputLabel for="authorID" value="Id autora: " />
+						<p:inputNumber id="authorID"
+							value="#{entryEditBB.creatorID}"></p:inputNumber>
+					</h:panelGrid>
+				</p:panel>
+
+
+				<p:messages id="msgs" />
+				<p:commandButton value="Zapisz" action="#{entryEditBB.save}"
+					update="@form" />
+
+
+			</h:form>
+			<h:form id="authorInfo">
+				<p:panel header="Wyszukaj Autorów" styleClass="bottom-space">
+					<h:inputText id="search" value="#{authorListBB.searchTerm}" />
+					<h:commandButton value="Szukaj"
+						action="#{authorListBB.searchAuthors}">
+						<f:ajax execute="search" render="@form" update="@form" />
+					</h:commandButton>
+
+
+					<h:dataTable id="searchResults"
+						value="#{authorListBB.searchResults}" var="author">
+						<h:column>
+							<f:facet name="header">ID</f:facet>
+							<h:outputText value="#{author.idCreator}" />
+						</h:column>
+						<h:column>
+							<f:facet name="header">Nick</f:facet>
+							<h:outputText value="#{author.nickname}" />
+						</h:column>
+						<h:column>
+							<f:facet name="header">Aliasy</f:facet>
+							<h:outputText value="#{author.aliases}" />
+						</h:column>
+						<h:column>
+							<f:facet name="header">Imię</f:facet>
+							<h:outputText value="#{author.firstName}" />
+						</h:column>
+						<h:column>
+							<f:facet name="header">Nazwisko</f:facet>
+							<h:outputText value="#{author.lastName}" />
+						</h:column>
+						<!-- add more columns as needed -->
+					</h:dataTable>
+
+				</p:panel>
+			</h:form>
+
+		</c:if>
+		<c:if test="#{entryEditBB.entry.isLocked eq 1}">
 		Edycja tej pozycji została zablokowana przez administratora
 	</c:if>
 	</ui:define>
-	
+
 </ui:composition>
 
 </html>

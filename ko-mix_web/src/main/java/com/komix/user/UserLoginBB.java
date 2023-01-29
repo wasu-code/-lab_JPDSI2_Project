@@ -63,7 +63,7 @@ public class UserLoginBB implements Serializable{
 				HttpServletRequest request = (HttpServletRequest) ctx.getExternalContext().getRequest();
 				client.store(request);
 				
-				//add to session(?)
+				//add role to session
 				ctx.getExternalContext().getSessionMap().put("role",u.get(0).getAccountrole());
 
 				// and enter the system (now SecurityFilter will pass the request)
@@ -81,10 +81,10 @@ public class UserLoginBB implements Serializable{
 	public String logout(){
 		HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
 				.getExternalContext().getSession(true);
-		//Invalidate session
-		// - all objects within session will be destroyed
-		// - new session will be created (with new ID)
 		session.invalidate();
+		context.addMessage(null,
+				new FacesMessage(FacesMessage.SEVERITY_INFO, "Wylogowano", null));
+		
 		return "index";
 	}
 	

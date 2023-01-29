@@ -24,7 +24,7 @@
 /public/edit.xhtml : user, mod, admin;
 /index.xhtml : PUBLIC;
 /login.xhtml : PUBLIC;
-/register.xhtml : admin;
+/register.xhtml : PUBLIC;
 /noEntry.xhtml : PUBLIC;
 /dashboard.xhtml : admin;
 /error.xhtml : PUBLIC;

@@ -20,44 +20,72 @@
 
 	<ui:define name="content">
 		<p:messages id="msgs" />
-							
+
 		<h:form>
 			<c:if test="#{sessionScope.role == 'admin'}">
-						<p:commandButton 
-							value="Pozwól na Edycję przez Użytkowników"
-							action="#{entryEditBB.lock(0)}" 
-							icon="pi pi-lock-open" >
-						</p:commandButton>
-							
-						<p:commandButton 
-							value="Zablokuj Edycję przez Użytkowników"
-							action="#{entryEditBB.lock(1)}" 
-							icon="pi pi-lock" >
-						</p:commandButton>
+				<p:commandButton value="Pozwól na Edycję przez Użytkowników"
+					action="#{entryEditBB.lock(0)}" icon="pi pi-lock-open">
+				</p:commandButton>
+
+				<p:commandButton value="Zablokuj Edycję przez Użytkowników"
+					action="#{entryEditBB.lock(1)}" icon="pi pi-lock">
+				</p:commandButton>
 			</c:if>
 		</h:form>
 		<h:form>
-			<p:panel header="Basic Info" styleClass="bottom-space">
-				<h:panelGrid columns="2" cellpadding="5">
-					<img src="#{entryEditBB.entry.coverUrl}"
-						style="width: 200px; height: auto;" />
-					<div class="tabrow">Original Title:
-						#{entryEditBB.entry.titleOrg}</div>
-					<div class="tabrow">English Title:
-						#{entryEditBB.entry.titleEng}</div>
-					<div class="tabrow">Aliases: #{entryEditBB.entry.aliases}</div>
-				</h:panelGrid>
+			<p:panel header="Podstawowe Informacje" styleClass="bottom-space">
+
+				<div style="display: flex; font-size: 1.5em;">
+					<div style="width: 20%; margin-right: 20px;">
+						<img width="100%" src="#{entryEditBB.entry.coverUrl}" />
+					</div>
+					<div style="width: 80%;">
+						<div style="display: flex; flex-direction: column;">
+							<div style="display: flex;"><b>Tytuł Oryginału: </b>
+								#{entryEditBB.entry.titleOrg}</div>
+							<div style="display: flex;"><b>Tytuł Angielski: </b>
+								#{entryEditBB.entry.titleEng}</div><br/>
+							<div style="display: flex;"><b>Opis:</b><br/>
+								#{entryEditBB.entry.aliases}</div>
+						</div>
+					</div>
+				</div>
 			</p:panel>
 
-			<p:panel header="More Info" toggleable="true" collapsed="false"
-				style="margin-bottom: 1em;">
+			<p:panel header="O Autorze" toggleable="true" collapsed="false"
+				style="margin-bottom: 1em;"
+				rendered="#{not empty entryEditBB.creators}">
+				<p:dataTable id="authors" value="#{entryEditBB.creators}" var="c"
+					paginator="false">
+					<p:column>
+						<f:facet name="header">Nick</f:facet>
+						<h:outputText value="#{c.creator.nickname}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">Imię</f:facet>
+						<h:outputText value="#{c.creator.firstName}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">Nazwisko</f:facet>
+						<h:outputText value="#{c.creator.lastName}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">Rola w Projekcie</f:facet>
+						<h:outputText value="#{c.role}" />
+					</p:column>
+
+				</p:dataTable>
+			</p:panel>
+
+			<p:panel header="Dodatkowe Informacje" toggleable="true"
+				collapsed="false" style="margin-bottom: 1em;">
 				<h:panelGrid columns="3" cellpadding="5">
-					<p:fieldset legend="Year of Publishing">#{entryEditBB.entry.publishYear}</p:fieldset>
-					<p:fieldset legend="Original Language">#{entryEditBB.entry.originalLang}</p:fieldset>
-					<p:fieldset legend="Reading Direction">#{entryEditBB.entry.readingDirection}</p:fieldset>
-					<p:fieldset legend="Number of Chapters">#{entryEditBB.entry.chapterCount}</p:fieldset>
-					<p:fieldset legend="Number of Volumes">#{entryEditBB.entry.volumeCount}</p:fieldset>
-					<p:fieldset legend="Number of Pages">#{entryEditBB.entry.pageCount}</p:fieldset>
+					<p:fieldset legend="Rok Publikacji">#{entryEditBB.entry.publishYear}</p:fieldset>
+					<p:fieldset legend="Język Oryginału">#{entryEditBB.entry.originalLang}</p:fieldset>
+					<p:fieldset legend="Kierunek Czytania">#{entryEditBB.entry.readingDirection}</p:fieldset>
+					<p:fieldset legend="Liczba Rozdziałów">#{entryEditBB.entry.chapterCount}</p:fieldset>
+					<p:fieldset legend="Liczba Tomów">#{entryEditBB.entry.volumeCount}</p:fieldset>
+					<p:fieldset legend="Liczba Stron">#{entryEditBB.entry.pageCount}</p:fieldset>
 				</h:panelGrid>
 			</p:panel>
 			<c:if test="#{entryEditBB.entry.isLocked eq 0}">

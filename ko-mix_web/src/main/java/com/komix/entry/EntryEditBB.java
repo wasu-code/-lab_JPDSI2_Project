@@ -1,6 +1,7 @@
 package com.komix.entry;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -25,10 +26,12 @@ public class EntryEditBB implements Serializable {
 	private Entry entry = new Entry();
 	private Creator creator = new Creator();
 	private EntryHasCreator entryHasCreator = new EntryHasCreator();
-	private List<Creator> creators;
+	private List<EntryHasCreator> creators; // new ArrayList<>();
+	private int creatorID;
 
 	@EJB
 	EntryDAO entryDAO;
+
 	@EJB
 	EntryHasCreatorDAO entryHasCreatorDAO;
 
@@ -46,18 +49,42 @@ public class EntryEditBB implements Serializable {
 		return creator;
 	}
 
+	public List<EntryHasCreator> getCreators() {
+		return creators;
+	}
+
+	public void setCreators(List<EntryHasCreator> creators) {
+		this.creators = creators;
+	}
+
+	//
+
+	public int getCreatorID() {
+		return creatorID;
+	}
+
+	public void setCreatorID(int creatorID) {
+		this.creatorID = creatorID;
+	}
+
 	public void addCreatorToEntry() {
-		entryHasCreatorDAO.addCreatorToEntry(entry.getIdEntry(), creator.getIdCreator());
+		if (creatorID != 0) {
+			try {
+				entryHasCreatorDAO.addCreatorToEntry(entry.getIdEntry(), creatorID);
+			} catch (Exception e) {
+				context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+						"Wystąpił błąd podczas przypisywania autora do dzieła. Upewnij się, że podane ID istnieje", null));
+
+			}
+		}
+
 	}
 
 	public void load() {
 		if (entry.getIdEntry() != 0) {
 			entry = entryDAO.get(entry.getIdEntry());
 
-			/*
-			 * creators = entryHasCreatorDAO.getCreatorsForEntity(entry.getIdEntry());
-			 * creator = creators.get(0);
-			 */
+			creators = entryHasCreatorDAO.getCreators(entry);
 		}
 	}
 
@@ -68,7 +95,7 @@ public class EntryEditBB implements Serializable {
 			try {
 				entryDAO.insert(entry);
 				context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Dodano pozycję do bazy", null));
-
+				addCreatorToEntry();
 			} catch (Exception e) {
 				e.printStackTrace();
 				context.addMessage(null,
@@ -78,24 +105,15 @@ public class EntryEditBB implements Serializable {
 		} else {// update existing entry
 			try {
 				entryDAO.update(entry);
-				context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Zaktualizowano dane pozycji", null));
-
+				context.addMessage(null,
+						new FacesMessage(FacesMessage.SEVERITY_INFO, "Zaktualizowano dane pozycji", null));
+				addCreatorToEntry();
 			} catch (Exception e) {
 				e.printStackTrace();
 				context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
 						"wystąpił błąd podczas aktualizacji danych", null));
 			}
 
-		}
-		if (creator.getIdCreator() != 0) {
-			try {
-				addCreatorToEntry();
-			} catch (Exception e) {
-				e.printStackTrace();
-				context.addMessage(null,
-						new FacesMessage(FacesMessage.SEVERITY_ERROR, "wystąpił błąd podczas dodawania autora: ", null));
-
-			}
 		}
 
 		return "/public/list";
@@ -106,12 +124,12 @@ public class EntryEditBB implements Serializable {
 		entry.setIsLocked((byte) x);
 		try {
 			entryDAO.update(entry);
-			if (x==1) {
+			if (x == 1) {
 				context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "zablokowano edycję", null));
 			} else {
 				context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "odblokowano edycję", null));
 			}
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			context.addMessage(null,

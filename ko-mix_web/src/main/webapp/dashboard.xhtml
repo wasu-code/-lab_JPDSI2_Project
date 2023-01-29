@@ -15,12 +15,12 @@
 	</f:metadata>
 
 	<ui:define name="title">
-		Editing Users
+		Edycja Użytkowników
 	</ui:define>
 
 	<ui:define name="content">
 		<h:form id="userEdit">
-			<p:panel header="Edit user" styleClass="bottom-space"
+			<p:panel header="Edytuj Użytkownika" styleClass="bottom-space"
 				collapsed="#{userEditBB.user.idUser eq 0 ? 'true' : 'false'}">
 
 
@@ -46,11 +46,11 @@
 		</h:form>
 
 		<h:form id="userList">
-			<p:panel header="Users" styleClass="bottom-space" id="abc">
+			<p:panel header="Użytkownicy" styleClass="bottom-space" id="abc">
 
-				<h:outputLabel for="search" value="Search:" />
+				<h:outputLabel for="search" value="Szukaj: " />
 				<h:inputText id="search" value="#{userListBB.searchTerm}" />
-				<h:commandButton value="Search" action="#{userListBB.searchUsers}">
+				<h:commandButton value="Szukaj" action="#{userListBB.searchUsers}">
 					<f:ajax execute="search" render="@form" update="@form" />
 				</h:commandButton>
 
